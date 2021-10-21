@@ -6,6 +6,8 @@
     "firstName" : "Seven",
     "lastName" : "xxx",
     "location" : "xx, China",
+    "email": "seven.xx@qq.com",
+    "profilescore": "80",
     "aobResponse": {
       "behaviour": [
         "Motivator", "Leader"

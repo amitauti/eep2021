@@ -4,6 +4,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import css from 'rollup-plugin-css-only';
+import dev from 'rollup-plugin-dev';
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -68,7 +69,17 @@ export default {
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
-		production && terser()
+		production && terser(),
+
+		!production && dev({
+			dirs: ['public'],
+			spa: 'public/index.html',
+			port: 5000,
+			proxy: [{
+				from: '/employee',
+				to: 'https://kqct8dttvd.execute-api.ap-south-1.amazonaws.com/employee'
+			}]
+		})
 	],
 	watch: {
 		clearScreen: false

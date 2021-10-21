@@ -1,0 +1,140 @@
+  "response": {
+      "type": "object",
+      "properties": {
+        "userid": {
+          "type": "string"
+        },
+        "designation": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "profilescore": {
+          "type": "string"
+        },
+        "hsbcexperience": {
+          "type": "string"
+        },
+        "profilepic": {
+          "type": "string"
+        },
+        "aobResponse": {
+              "type": "object",
+              "properties": {
+                "behaviour": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "AOB - Behaviour for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                }
+              }
+            },
+        "degreedResponse": {
+         "type": "object",
+              "properties": {
+                "awards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Degreed - Award for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                },
+            "certifications": {
+              "type": "array",
+              "items": [
+                 "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "year"
+                  ]
+              ],
+                  "minItems": 1,
+                  "maxItems": 10
+            },
+            "degree": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "year"
+                  ]
+                }           
+              ],
+                  "minItems": 1,
+                  "maxItems": 10
+            },
+            "badges": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ],
+                  "minItems": 1,
+                  "maxItems": 10
+            }
+          },
+          "required": [
+            "awards",
+            "certifications",
+            "degree",
+            "badges"
+          ]
+        },
+        "self": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "userid",
+        "designation",
+        "department",
+        "firstName",
+        "lastName",
+        "location",
+        "email",
+        "profilescore",
+        "hsbcexperience",
+        "profilepic",
+        "aobResponse",
+        "degreedResponse",
+        "self"
+      ]
+    }
+    

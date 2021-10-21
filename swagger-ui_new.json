@@ -1,0 +1,261 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "This is API for Recognition and Achivements",
+    "version": "1.0.0",
+    "title": "hsbc-employee-recognition"
+  },
+  "host": "ino0jeiau3.execute-api.ap-south-1.amazonaws.com",
+  "basePath": "/prod/hsbc-employee-recognition/",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/ui/{userid}": {
+      "get": {
+        "tags": [
+          "hsbc-employee-recognition"
+        ],
+        "parameters": [
+          {
+            "name": "userid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "searchUser",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "maxLength": 8
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/response200"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/response400"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/response404"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/response500"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "response200": {
+      "type": "object",
+      "properties": {
+ "response": {
+      "type": "object",
+      "properties": {
+        "userid": {
+          "type": "string"
+        },
+        "designation": {
+          "type": "string"
+        },
+        "department": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "profilescore": {
+          "type": "string"
+        },
+        "hsbcexperience": {
+          "type": "string"
+        },
+        "profilepic": {
+          "type": "string"
+        },
+        "aobResponse": {
+              "type": "object",
+              "properties": {
+                "behaviour": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "AOB - Behaviour for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                }
+              }
+            },
+        "degreedResponse": {
+         "type": "object",
+              "properties": {
+                "awards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Degreed - Award for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                },
+            "certifications": {
+              "type": "array",
+              "items": [
+                 "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "year"
+                  ]
+              ],
+                  "minItems": 1,
+                  "maxItems": 10
+            },
+            "degree": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "year": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "year"
+                  ]
+                }           
+              ],
+                  "minItems": 1,
+                  "maxItems": 10
+            },
+            "badges": {
+              "type": "array",
+              "items": [
+                {
+                  "type": "string"
+                }
+              ],
+                  "minItems": 1,
+                  "maxItems": 10
+            }
+          },
+          "required": [
+            "awards",
+            "certifications",
+            "degree",
+            "badges"
+          ]
+        },
+        "self": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "userid",
+        "designation",
+        "department",
+        "firstName",
+        "lastName",
+        "location",
+        "email",
+        "profilescore",
+        "hsbcexperience",
+        "profilepic",
+        "aobResponse",
+        "degreedResponse",
+        "self"
+      ]
+    }  
+      }
+    },
+    "response500": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "Internal server Error",
+              "maxLength": 18
+            }
+          }
+        }
+      }
+    },
+    "response400": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "Bad Request",
+              "maxLength": 18
+            }
+          }
+        }
+      }
+    },
+    "response404": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "Not Found",
+              "maxLength": 18
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,197 +1,222 @@
 {
-	"swagger": "2.0",
-	"info": {
-		"description": "This is API for Recognition and Achivements",
-		"version": "1.0.0",
-		"title": "hsbc-employee-recognition"
-	},
-	"host": "ino0jeiau3.execute-api.ap-south-1.amazonaws.com",
-	"basePath": "/prod/hsbc-employee-recognition/",
-	"schemes": [
-		"https",
-		"http"
-	],
-	"consumes": [
-		"application/json"
-	],
-	"produces": [
-		"application/json"
-	],
-	"paths": {
-		"/ui/{username}": {
-			"get": {
-				"tags": [
-					"hsbc-employee-recognition"
-				],
-				"parameters": [
-					{
-						"name": "username",
-						"in": "path",
-						"required": true,
-						"type": "string"
-					},
-					{
-						"name": "searchUser",
-						"in": "query",
-						"required": false,
-						"type": "string",
-						"maxLength": 8
-					}
-				],
-				"responses": {
-					"200": {
-						"description": "OK",
-						"schema": {
-							"$ref": "#/definitions/response200"
-						}
-					},
-					"400": {
-						"description": "Bad Request",
-						"schema": {
-							"$ref": "#/definitions/response400"
-						}
-					},
-					"404": {
-						"description": "Not Found",
-						"schema": {
-							"$ref": "#/definitions/response404"
-						}
-					},
-					"500": {
-						"description": "Internal Server Error",
-						"schema": {
-							"$ref": "#/definitions/response500"
-						}
-					}
-				}
-			}
-		}
-	},
-	"definitions": {
-		"response200": {
-			"type": "object",
-			"properties": {
-				"response": {
-					"type": "object",
-					"properties": {
-						"username": {
-							"type": "string",
-							"description": "Username of the employee",
-							"maxLength": 100
-						},
-						"designation": {
-							"type": "string",
-							"description": "Designation of the employee",
-							"maxLength": 100
-						},
-						"aobResponse": {
-							"type": "object",
-							"properties": {
-								"behaviour": {
-									"type": "array",
-									"items": {
-										"type": "string",
-										"description": "AOB - Behaviour for user"
-									},
-									"minItems": 1,
-									"maxItems": 10
-								}
-							}
-						},
-						"degreedResponse": {
-							"type": "object",
-							"properties": {
-								"awards": {
-									"type": "array",
-									"items": {
-										"type": "string",
-										"description": "Degreed - Award for user"
-									},
-									"minItems": 1,
-									"maxItems": 10
-								},
-								"certifications": {
-									"type": "array",
-									"items": {
-										"type": "string",
-										"description": "Degreed - Certification for user"
-									},
-									"minItems": 1,
-									"maxItems": 10
-								},
-								"degree": {
-									"type": "array",
-									"items": {
-										"type": "string",
-										"description": "Degreed - degree for user"
-									},
-									"minItems": 1,
-									"maxItems": 10
-								},
-								"badges": {
-									"type": "array",
-									"items": {
-										"type": "string",
-										"description": "Degreed - Badges for user"
-									},
-									"minItems": 1,
-									"maxItems": 10
-								}
-							}
-						},
-						"self": {
-							"type": "string",
-							"description": "Filler",
-							"maxLength": 80
-						}
-					}
-				}
-			}
-		},
-		"response500": {
-			"type": "object",
-			"properties": {
-				"response": {
-					"type": "object",
-					"properties": {
-						"error": {
-							"type": "string",
-							"description": "Internal server Error",
-							"maxLength": 18
-						}
-					}
-				}
-			}
-		},
-		"response400": {
-			"type": "object",
-			"properties": {
-				"response": {
-					"type": "object",
-					"properties": {
-						"error": {
-							"type": "string",
-							"description": "Bad Request",
-							"maxLength": 18
-						}
-					}
-				}
-			}
-		},
-		"response404": {
-			"type": "object",
-			"properties": {
-				"response": {
-					"type": "object",
-					"properties": {
-						"error": {
-							"type": "string",
-							"description": "Not Found",
-							"maxLength": 18
-						}
-					}
-				}
-			}
-		}
-	}
+  "swagger": "2.0",
+  "info": {
+    "description": "This is API for Recognition and Achivements",
+    "version": "1.0.0",
+    "title": "hsbc-employee-recognition"
+  },
+  "host": "ino0jeiau3.execute-api.ap-south-1.amazonaws.com",
+  "basePath": "/prod/hsbc-employee-recognition/",
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/ui/{username}": {
+      "get": {
+        "tags": [
+          "hsbc-employee-recognition"
+        ],
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "searchUser",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "maxLength": 8
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/response200"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/definitions/response400"
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "schema": {
+              "$ref": "#/definitions/response404"
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "schema": {
+              "$ref": "#/definitions/response500"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "response200": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "description": "Username of the employee",
+              "maxLength": 100
+            },
+            "designation": {
+              "type": "string",
+              "description": "Designation of the employee",
+              "maxLength": 100
+            },
+            "firstname": {
+              "type": "string",
+              "description": "Userfirstname of the employee",
+              "maxLength": 100
+            },
+            "lastname": {
+              "type": "string",
+              "description": "Userlastname of the employee",
+              "maxLength": 100
+            },
+            "location": {
+              "type": "string",
+              "description": "location of the employee",
+              "maxLength": 100
+            },
+            "email": {
+              "type": "string",
+              "description": "email of the employee",
+              "maxLength": 100
+            },
+            "profilescore": {
+              "type": "string",
+              "description": "profilescore of the employee",
+              "maxLength": 100
+            },
+            "aobResponse": {
+              "type": "object",
+              "properties": {
+                "behaviour": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "AOB - Behaviour for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                }
+              }
+            },
+            "degreedResponse": {
+              "type": "object",
+              "properties": {
+                "awards": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Degreed - Award for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                },
+                "certifications": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Degreed - Certification for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                },
+                "degree": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Degreed - degree for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                },
+                "badges": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Degreed - Badges for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+                }
+              }
+            },
+            "self": {
+              "type": "string",
+              "description": "Filler",
+              "maxLength": 80
+            }
+          }
+        }
+      }
+    },
+    "response500": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "Internal server Error",
+              "maxLength": 18
+            }
+          }
+        }
+      }
+    },
+    "response400": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "Bad Request",
+              "maxLength": 18
+            }
+          }
+        }
+      }
+    },
+    "response404": {
+      "type": "object",
+      "properties": {
+        "response": {
+          "type": "object",
+          "properties": {
+            "error": {
+              "type": "string",
+              "description": "Not Found",
+              "maxLength": 18
+            }
+          }
+        }
+      }
+    }
+  }
 }

@@ -18,7 +18,7 @@
 		"application/json"
 	],
 	"paths": {
-		"/hsbc-employee-recognition/{username}": {
+		"/ui/{username}": {
 			"get": {
 				"tags": [
 					"hsbc-employee-recognition"

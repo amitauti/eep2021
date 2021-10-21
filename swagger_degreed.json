@@ -5,7 +5,7 @@
 		"version": "1.0.0",
 		"title": "hsbc-employee-degreed"
 	},
-	"host": "ino0jeiau3.execute-api.ap-south-1.amazonaws.com",
+	"host": "biike7bs06.execute-api.ap-south-1.amazonaws.com",
 	"basePath": "/prod/hsbc-employee-degreed/",
 	"schemes": [
 		"https",

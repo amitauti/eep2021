@@ -1,10 +1,14 @@
 {
   "response": {
-    "username": "44079193",
-    "designation": "Software Engg",
+    "username": "43079193",
+    "designation": "Consultant",
+    "department": "GBM",
+    "firstName" : "Seven",
+    "lastName" : "xxx",
+    "location" : "xx, China",
     "aobResponse": {
       "behaviour": [
-        "Strong", "Top"
+        "Motivator", "Leader"
       ]
     },
     "degreedResponse": {

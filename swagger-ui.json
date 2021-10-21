@@ -71,7 +71,7 @@
 		"response200": {
 			"type": "object",
 			"properties": {
-				"hsbc-employee-recognition": {
+				"response": {
 					"type": "object",
 					"properties": {
 						"username": {
@@ -84,7 +84,7 @@
 							"description": "Designation of the employee",
 							"maxLength": 100
 						},
-						"aob_response": {
+						"aobResponse": {
 							"type": "object",
 							"properties": {
 								"behaviour": {
@@ -98,7 +98,7 @@
 								}
 							}
 						},
-						"degreed_response": {
+						"degreedResponse": {
 							"type": "object",
 							"properties": {
 								"awards": {
@@ -151,7 +151,7 @@
 		"response500": {
 			"type": "object",
 			"properties": {
-				"hsbc-employee-recognition": {
+				"response": {
 					"type": "object",
 					"properties": {
 						"error": {
@@ -166,7 +166,7 @@
 		"response400": {
 			"type": "object",
 			"properties": {
-				"hsbc-employee-recognition": {
+				"response": {
 					"type": "object",
 					"properties": {
 						"error": {
@@ -181,7 +181,7 @@
 		"response404": {
 			"type": "object",
 			"properties": {
-				"hsbc-employee-recognition": {
+				"response": {
 					"type": "object",
 					"properties": {
 						"error": {

@@ -1,0 +1,7 @@
+https://kqct8dttvd.execute-api.ap-south-1.amazonaws.com/degreed/43304443
+
+https://kqct8dttvd.execute-api.ap-south-1.amazonaws.com/aob/43304443
+
+https://kqct8dttvd.execute-api.ap-south-1.amazonaws.com/employee/43304443
+
+https://kqct8dttvd.execute-api.ap-south-1.amazonaws.com/

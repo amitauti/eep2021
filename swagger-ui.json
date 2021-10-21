@@ -109,6 +109,25 @@
               "description": "profilescore of the employee",
               "maxLength": 100
             },
+            "profilepic": {
+              "type": "string",
+              "description": "profilepic of the employee",
+              "maxLength": 100
+            },
+            "skills": {
+               "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "skills for user"
+                  },
+                  "minItems": 1,
+                  "maxItems": 10
+            },
+			"hsbcexperience": {
+              "type": "string",
+              "description": "hsbcexperience of the employee",
+              "maxLength": 100
+            },
             "aobResponse": {
               "type": "object",
               "properties": {

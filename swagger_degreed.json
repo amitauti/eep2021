@@ -18,7 +18,7 @@
 		"application/json"
 	],
 	"paths": {
-		"/hsbc-employee-degreed/{username}": {
+		"/ui/{username}": {
 			"get": {
 				"tags": [
 					"hsbc-employee-degreed"
@@ -42,25 +42,25 @@
 					"200": {
 						"description": "OK",
 						"schema": {
-							"$ref": "#/definitions/hsbc-employee-degreed_response_200"
+							"$ref": "#/definitions/response200"
 						}
 					},
 					"400": {
 						"description": "Bad Request",
 						"schema": {
-							"$ref": "#/definitions/hsbc-employee-degreed_response_400"
+							"$ref": "#/definitions/response400"
 						}
 					},
 					"404": {
 						"description": "Not Found",
 						"schema": {
-							"$ref": "#/definitions/hsbc-employee-degreed_response_404"
+							"$ref": "#/definitions/response404"
 						}
 					},
 					"500": {
 						"description": "Internal Server Error",
 						"schema": {
-							"$ref": "#/definitions/hsbc-employee-degreed_response_500"
+							"$ref": "#/definitions/response500"
 						}
 					}
 				}
@@ -68,13 +68,13 @@
 		}
 	},
 	"definitions": {
-		"hsbc-employee-degreed_response_200": {
+		"response200": {
 			"type": "object",
 			"properties": {
-				"hsbc-employee-degreed": {
+				"response": {
 					"type": "object",
-					"properties": 
-						"degreed_response": {
+					"properties": {				
+						"degreedResponse": {
 							"type": "object",
 							"properties": {
 								"awards": {
@@ -119,10 +119,10 @@
 				}
 			}
 		},
-		"hsbc-employee-degreed_response_500": {
+		"response500": {
 			"type": "object",
 			"properties": {
-				"hsbc-employee-degreed": {
+				"response": {
 					"type": "object",
 					"properties": {
 						"error": {
@@ -134,10 +134,10 @@
 				}
 			}
 		},
-		"hsbc-employee-degreed_response_400": {
+		"response400": {
 			"type": "object",
 			"properties": {
-				"hsbc-employee-degreed": {
+				"response": {
 					"type": "object",
 					"properties": {
 						"error": {
@@ -149,10 +149,10 @@
 				}
 			}
 		},
-		"hsbc-employee-degreed_response_404": {
+		"response404": {
 			"type": "object",
 			"properties": {
-				"hsbc-employee-degreed": {
+				"response": {
 					"type": "object",
 					"properties": {
 						"error": {
@@ -166,8 +166,3 @@
 		}
 	}
 }
-© 2021 GitHub, Inc.
-Terms
-Privacy
-Security
-Status

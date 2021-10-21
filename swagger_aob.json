@@ -1,131 +1,136 @@
 {
-  "swagger": "2.0",
-  "info": {
-    "description": "This is API for aob",
-    "version": "1.0.0",
-    "title": "hsbc-employee-aob"
-  },
-  "host": "n2n8pcusbf.execute-api.ap-south-1.amazonaws.com",
-  "basePath": "/prod/hsbc-employee-aob/",
-  "schemes": [
-    "https",
-    "http"
-  ],
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
-  "paths": {
-    "/hsbc-employee-aob/{username}": {
-      "get": {
-        "tags": [
-          "hsbc-employee-aob"
-        ],
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          },
-          {
-            "name": "searchUser",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "maxLength": 8
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": {
-              "$ref": "#/definitions/hsbc-employee-aob_response_200"
-            }
-          },
-          "400": {
-            "description": "Bad Request",
-            "schema": {
-              "$ref": "#/definitions/hsbc-employee-aob_response_400"
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "schema": {
-              "$ref": "#/definitions/hsbc-employee-aob_response_404"
-            }
-          },
-          "500": {
-            "description": "Internal Server Error",
-            "schema": {
-              "$ref": "#/definitions/hsbc-employee-aob_response_500"
-            }
-          }
-        }
-      }
-    }
-  },
-  "definitions": {
-    "hsbc-employee-aob_response_200": {
-      "type": "object",
-      "properties": {
-        "hsbc-employee-aob": {
-          "type": "object",
-          "properties": {
-            "behaviour": {
-              "type": "array",
-              "description": "behaviour of the employee",
-              "maxLength": 100
-            }           
-            }
-          }
-        }
-      }  ,
-  "hsbc-employee-aob_response_500": {
-    "type": "object",
-    "properties": {
-      "hsbc-employee-aob": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "Internal server Error",
-            "maxLength": 18
-          }
-        }
-      }
-    }
-  },
-  "hsbc-employee-aob_response_400": {
-    "type": "object",
-    "properties": {
-      "hsbc-employee-aob": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "Bad Request",
-            "maxLength": 18
-          }
-        }
-      }
-    }
-  },
-  "hsbc-employee-aob_response_404": {
-    "type": "object",
-    "properties": {
-      "hsbc-employee-aob": {
-        "type": "object",
-        "properties": {
-          "error": {
-            "type": "string",
-            "description": "Not Found",
-            "maxLength": 18
-          }
-        }
-      }
-    }
-  }
+	"swagger": "2.0",
+	"info": {
+		"description": "This is API for aob",
+		"version": "1.0.0",
+		"title": "hsbc-employee-aob"
+	},
+	"host": "n2n8pcusbf.execute-api.ap-south-1.amazonaws.com",
+	"basePath": "/prod/hsbc-employee-recognition/",
+	"schemes": [
+		"https",
+		"http"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/aob/{username}": {
+			"get": {
+				"tags": [
+					"hsbc-employee-aob"
+				],
+				"parameters": [
+					{
+						"name": "username",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "searchUser",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"maxLength": 8
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/response200"
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"schema": {
+							"$ref": "#/definitions/response400"
+						}
+					},
+					"404": {
+						"description": "Not Found",
+						"schema": {
+							"$ref": "#/definitions/response404"
+						}
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"schema": {
+							"$ref": "#/definitions/response500"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"response200": {
+			"type": "object",
+			"properties": {
+				"response": {
+					"type": "object",
+					"properties": {
+						"behaviour": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"description": "behaviour of the employee"
+							},
+							"minItems": 1,
+							"maxItems": 10
+						}
+					}
+				}
+			}
+		},
+		"response500": {
+			"type": "object",
+			"properties": {
+				"response": {
+					"type": "object",
+					"properties": {
+						"error": {
+							"type": "string",
+							"description": "Internal server Error",
+							"maxLength": 18
+						}
+					}
+				}
+			}
+		},
+		"response400": {
+			"type": "object",
+			"properties": {
+				"response": {
+					"type": "object",
+					"properties": {
+						"error": {
+							"type": "string",
+							"description": "Bad Request",
+							"maxLength": 18
+						}
+					}
+				}
+			}
+		},
+		"response404": {
+			"type": "object",
+			"properties": {
+				"response": {
+					"type": "object",
+					"properties": {
+						"error": {
+							"type": "string",
+							"description": "Not Found",
+							"maxLength": 18
+						}
+					}
+				}
+			}
+		}
+	}
 }

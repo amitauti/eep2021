@@ -2,13 +2,51 @@
 	export let name;
 	import Content from './Content.svelte';
 	import FactItem from './FactItem.svelte';
+	import Award from './Award.svelte';
+	import Degreed from './Degreed.svelte';
+	import Certification from './Certification.svelte';
   import Modal from 'svelte-simple-modal';
+	import { Tabs, Tab, TabList, TabPanel } from 'svelte-tabs';
+	import ProgressBar from '@okrad/svelte-progressbar';
+
+	let user = {};
+	let series = [{
+		perc: 0,
+		color: '#2196f3'
+	}];
+
+	fetch('http://localhost:3000/profiles/1').then(res => res.json()).then(res => {
+		// console.log(res);
+		user = res.response;
+		user.skillsFormat = user.skills.slice(0, -1).join(', ');
+		// console.log(user.degreedResponse);
+		// console.log(user?.degreedResponse?.awards?.length);
+		user.awards = user?.degreedResponse?.awards?.length;
+		console.log(user);
+		series = [{
+			perc: user.profilescore,
+			color: '#2196f3'
+		}];
+		// console.log(user.skills);
+		// user.lastSkill = user.skills[-1];
+	})
+
+
+	//
+	// setTimeout(() => {
+	// 	series = [{
+	// 		perc: 77,
+	// 		color: '#2196f3'
+	// 	}]
+	// }, 1000);
 
 </script>
 
 <header>
 	<div class="logo">
-		<a href="#">HSBC Regonization</a>
+		<a href="#">
+			HSBC Regonization
+		</a>
 	</div>
 	<div class="search">
 		<span class="search-icon"></span>
@@ -91,7 +129,7 @@
 		<div class="container">
 
 			<!-- section title -->
-			<h2 class="section-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">About Me</h2>
+			<h2 class="section-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">About {user.firstName}</h2>
 
 			<div class="spacer" data-height="60" style="height: 60px;"></div>
 
@@ -100,25 +138,51 @@
 				<div class="col-md-3">
 					<div class="text-center text-md-left" style="width: 150px;">
 						<!-- avatar image -->
-						<img src="images/avatar-2.svg" alt="Bolby">
+						<img src={user?.profilepic} alt="Bolby" style="
+    width: 150px;
+    border-radius: 50%;
+    height: 150px;
+">
 						<div style="
 						    text-align: center;
 						    margin-top: 20px;
-						    font-size: 26px;
+						    font-size: 18px;
 						    font-weight: bold;
-						">Seven</div>
+						">{user.firstName} {user.lastName}</div>
 					</div>
 					<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
 				</div>
 
 				<div class="col-md-9 triangle-left-md triangle-top-sm">
-					<div class="rounded bg-white shadow-dark padding-30">
-						<div class="row">
-							<div class="">
+					<div class="rounded bg-white shadow-dark">
+						<div class="">
+							<div class="" style="display: flex;">
 								<!-- about text -->
-								<p>I am Bolby Doe, web developer from London, United Kingdom. I have rich experience in web site design and building and customization, also I am good at WordPress.</p>
-								<div class="mt-3" style="display: flex; flex-direction: row-reverse;">
-									<a href="#" class="btn btn-default">Print Profile</a>
+								<div class="padding-30">
+									<div>
+										<p>I am {user.firstName} {user.lastName}, working as {user.designation} in {user.department} team.</p>
+										<p>I have rich experience in {user.skillsFormat}, also I am good at {user?.skills?.slice(-1)}.</p>
+									</div>
+									<div style="
+    display: flex;
+    align-items: center;
+    width: 600px;
+    justify-content: space-between;
+">
+									<div>
+										<span class="icon icon-location-pin"></span>
+										{user.location}
+									</div>
+									<!-- <div>
+										<a href="#" class="btn btn-default">Print Profile</a>
+									</div> -->
+									</div>
+								</div>
+								<div class="right-part" style="display: flex; flex-direction: column;">
+									<ProgressBar style='radial' width={110} height={110} series={series} thickness={10} />
+									<span style="
+    margin-bottom: 10px;
+">Profile Score</span>
 								</div>
 								<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
 							</div>
@@ -170,7 +234,57 @@
 
 			<div class="spacer" data-height="70" style="height: 70px;"></div>
 
-			<Modal><FactItem /></Modal>
+			<div class="row">
+
+			  <div class="col-md-3 col-sm-6">
+			    <!-- fact item -->
+			    <div class="fact-item">
+			      <span class="icon icon-trophy"></span>
+			      <div class="details">
+			        <h3 class="mb-0 mt-0 number">{user?.degreedResponse?.awards?.length || 0}</h3>
+			        <p class="mb-0">Awards win</p>
+			      </div>
+			    </div>
+			    <div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
+			  </div>
+
+
+			  <div class="col-md-3 col-sm-6">
+			    <!-- fact item -->
+			    <div class="fact-item">
+			      <span class="icon icon-badge"></span>
+			      <div class="details">
+			        <h3 class="mb-0 mt-0 number">{user?.degreedResponse?.certifications?.length || 0}</h3>
+			        <p class="mb-0">Centification gain</p>
+			      </div>
+			    </div>
+			    <div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
+			  </div>
+
+			  <div class="col-md-3 col-sm-6">
+			    <!-- fact item -->
+			    <div class="fact-item">
+			      <span class="icon icon-graduation"></span>
+			      <div class="details">
+			        <h3 class="mb-0 mt-0 number">{user?.degreedResponse?.degree?.length || 0}</h3>
+			        <p class="mb-0">Degree completed</p>
+			      </div>
+			    </div>
+			    <div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
+			  </div>
+
+			  <div class="col-md-3 col-sm-6">
+			    <!-- fact item -->
+			    <div class="fact-item">
+			      <span class="icon icon-shield"></span>
+			      <div class="details">
+			        <h3 class="mb-0 mt-0 number">{user?.degreedResponse?.badges?.length || 0}</h3>
+			        <p class="mb-0">Badges</p>
+			      </div>
+			    </div>
+			  </div>
+
+			</div>
 
 
 		</div>
@@ -189,302 +303,55 @@
 
 			<div class="row">
 
-				<div class="col-md-4">
-					<!-- service box -->
-					<div class="service-box rounded data-background padding-30 text-center text-light shadow-blue" data-color="#6C6CE5" style="background-color: rgb(108, 108, 229);">
-						<img src="images/service-1.svg" alt="UI/UX design">
-						<h3 class="mb-3 mt-0">UI/UX design</h3>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
-					</div>
-					<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
-				</div>
+				<Tabs initialSelectedIndex={-1}>
+					<TabList>
+						<Tab>
+						<div>
+							<!-- service box -->
+							<div class="service-box rounded data-background padding-30 text-center text-light shadow-blue" data-color="#6C6CE5" style="background-color: rgb(108, 108, 229);">
+								<img src="images/service-1.svg" alt="UI/UX design">
+								<h3 class="mb-3 mt-0">Awards</h3>
+								<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
+							</div>
+							<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
+						</div>
+						</Tab>
+						<Tab>
+						<div>
+							<!-- service box -->
+							<div class="service-box rounded data-background padding-30 text-center shadow-yellow" data-color="#F9D74C" style="background-color: rgb(249, 215, 76);">
+								<img src="images/service-2.svg" alt="UI/UX design">
+								<h3 class="mb-3 mt-0">Centification</h3>
+								<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
+							</div>
+							<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
+						</div>
+						</Tab>
+						<Tab>
+						<div>
+							<!-- service box -->
+							<div class="service-box rounded data-background padding-30 text-center text-light shadow-pink" data-color="#F97B8B" style="background-color: rgb(249, 123, 139);">
+								<img src="images/service-3.svg" alt="UI/UX design">
+								<h3 class="mb-3 mt-0">Degrees</h3>
+								<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
+							</div>
+						</div>
+						</Tab>
+					</TabList>
 
-				<div class="col-md-4">
-					<!-- service box -->
-					<div class="service-box rounded data-background padding-30 text-center shadow-yellow" data-color="#F9D74C" style="background-color: rgb(249, 215, 76);">
-						<img src="images/service-2.svg" alt="UI/UX design">
-						<h3 class="mb-3 mt-0">Web Development</h3>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
-					</div>
-					<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
-				</div>
+					<TabPanel>
+						<Award />
+					</TabPanel>
 
-				<div class="col-md-4">
-					<!-- service box -->
-					<div class="service-box rounded data-background padding-30 text-center text-light shadow-pink" data-color="#F97B8B" style="background-color: rgb(249, 123, 139);">
-						<img src="images/service-3.svg" alt="UI/UX design">
-						<h3 class="mb-3 mt-0">Photography</h3>
-						<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
-					</div>
-				</div>
+					<TabPanel>
+						<Certification />
+					</TabPanel>
 
+					<TabPanel>
+						<Degreed />
+					</TabPanel>
+				</Tabs>
 			</div>
-
-			<div class="mt-5 text-center">
-				<p class="mb-0">Looking for a custom job? <a href="#contact">Click here</a> to contact me! 👋</p>
-			</div>
-
-		</div>
-
-	</section>
-
-	<!-- section experience -->
-	<section id="experience">
-
-		<div class="container">
-
-			<!-- section title -->
-			<h2 class="section-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Experience</h2>
-
-			<div class="spacer" data-height="60" style="height: 60px;"></div>
-
-			<div class="row">
-
-				<div class="col-md-6">
-
-					<!-- timeline wrapper -->
-					<div class="timeline edu bg-white rounded shadow-dark padding-30 overflow-hidden">
-
-						<!-- timeline item -->
-						<div class="timeline-container wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-							<div class="content">
-								<span class="time">2019 - Present</span>
-								<h3 class="title">Academic Degree</h3>
-								<p>Lorem ipsum dolor sit amet quo ei simul congue exerci ad nec admodum perfecto.</p>
-							</div>
-						</div>
-
-						<!-- timeline item -->
-						<div class="timeline-container wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-							<div class="content">
-								<span class="time">2017 - 2013</span>
-								<h3 class="title">Bachelor’s Degree</h3>
-								<p>Lorem ipsum dolor sit amet quo ei simul congue exerci ad nec admodum perfecto.</p>
-							</div>
-						</div>
-
-						<!-- timeline item -->
-						<div class="timeline-container wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
-							<div class="content">
-								<span class="time">2013 - 2009</span>
-								<h3 class="title">Honours Degree</h3>
-								<p>Lorem ipsum dolor sit amet quo ei simul congue exerci ad nec admodum perfecto.</p>
-							</div>
-						</div>
-
-						<!-- main line -->
-						<span class="line"></span>
-
-					</div>
-
-				</div>
-
-				<div class="col-md-6">
-
-					<!-- responsive spacer -->
-					<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
-
-					<!-- timeline wrapper -->
-					<div class="timeline exp bg-white rounded shadow-dark padding-30 overflow-hidden">
-
-						<!-- timeline item -->
-						<div class="timeline-container wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-							<div class="content">
-								<span class="time">2019 - Present</span>
-								<h3 class="title">Web Designer</h3>
-								<p>Lorem ipsum dolor sit amet quo ei simul congue exerci ad nec admodum perfecto.</p>
-							</div>
-						</div>
-
-						<!-- timeline item -->
-						<div class="timeline-container wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-							<div class="content">
-								<span class="time">2017 - 2013</span>
-								<h3 class="title">Front-End Developer</h3>
-								<p>Lorem ipsum dolor sit amet quo ei simul congue exerci ad nec admodum perfecto.</p>
-							</div>
-						</div>
-
-						<!-- timeline item -->
-						<div class="timeline-container wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
-							<div class="content">
-								<span class="time">2013 - 2009</span>
-								<h3 class="title">Back-End Developer</h3>
-								<p>Lorem ipsum dolor sit amet quo ei simul congue exerci ad nec admodum perfecto.</p>
-							</div>
-						</div>
-
-						<!-- main line -->
-						<span class="line"></span>
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</section>
-
-	<!-- section works -->
-	<section id="works">
-
-		<div class="container">
-
-			<!-- section title -->
-			<h2 class="section-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Recent works</h2>
-
-			<div class="spacer" data-height="60" style="height: 60px;"></div>
-
-			<!-- portfolio filter (desktop) -->
-			<ul class="portfolio-filter list-inline wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">
-				<li class="list-inline-item current" data-filter="*">Everything</li>
-				<li class="list-inline-item" data-filter=".creative">Creative</li>
-				<li class="list-inline-item" data-filter=".art">Art</li>
-				<li class="list-inline-item" data-filter=".design">Design</li>
-				<li class="list-inline-item" data-filter=".branding">Branding</li>
-			</ul>
-
-			<!-- portfolio filter (mobile) -->
-			<div class="pf-filter-wrapper">
-				<select class="portfolio-filter-mobile">
-					<option value="*">Everything</option>
-					<option value=".creative">Creative</option>
-					<option value=".art">Art</option>
-					<option value=".design">Design</option>
-					<option value=".branding">Branding</option>
-				</select>
-			</div>
-
-			<!-- portolio wrapper -->
-			<div class="row portfolio-wrapper" style="position: relative; height: 595.062px;">
-
-				<!-- portfolio item -->
-				<div class="col-md-4 col-sm-6 grid-item art" style="position: absolute; left: 0%; top: 0px;">
-					<a href="images/works/1.svg" class="work-image">
-						<div class="portfolio-item rounded shadow-dark">
-							<div class="details">
-								<span class="term">Art</span>
-								<h4 class="title">Project Managment Illustration</h4>
-								<span class="more-button"><i class="icon-magnifier-add"></i></span>
-							</div>
-							<div class="thumb">
-								<img src="images/works/1.svg" alt="Portfolio-title">
-								<div class="mask"></div>
-							</div>
-						</div>
-					</a>
-				</div>
-
-				<!-- portfolio item -->
-				<div class="col-md-4 col-sm-6 grid-item creative design" style="position: absolute; left: 33.3333%; top: 0px;">
-					<a href="#small-dialog" class="work-content">
-						<div class="portfolio-item rounded shadow-dark">
-							<div class="details">
-								<span class="term">Creative</span>
-								<h4 class="title">Guest App Walkthrough Screens</h4>
-								<span class="more-button"><i class="icon-options"></i></span>
-							</div>
-							<div class="thumb">
-								<img src="images/works/2.svg" alt="Portfolio-title">
-								<div class="mask"></div>
-							</div>
-						</div>
-					</a>
-					<div id="small-dialog" class="white-popup zoom-anim-dialog mfp-hide">
-						<img src="images/single-work.svg" alt="Title">
-						<h2>Guest App Walkthrough Screens</h2>
-						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam hendrerit nibh in massa semper rutrum. In rhoncus eleifend mi id tempus.</p>
-						<p>Donec consectetur, libero at pretium euismod, nisl felis lobortis urna, id tristique nisl lectus eget ligula.</p>
-						<a href="#" class="btn btn-default">View on Dribbble</a>
-					</div>
-				</div>
-
-				<!-- portfolio item -->
-				<div class="col-md-4 col-sm-6 grid-item branding" style="position: absolute; left: 66.6667%; top: 0px;">
-					<a href="https://www.youtube.com/watch?v=qf9z4ulfmYw" class="work-video">
-						<div class="portfolio-item rounded shadow-dark">
-							<div class="details">
-								<span class="term">Branding</span>
-								<h4 class="title">Delivery App Wireframe</h4>
-								<span class="more-button"><i class="icon-camrecorder"></i></span>
-							</div>
-							<div class="thumb">
-								<img src="images/works/3.svg" alt="Portfolio-title">
-								<div class="mask"></div>
-							</div>
-						</div>
-					</a>
-				</div>
-
-				<!-- portfolio item -->
-				<div class="col-md-4 col-sm-6 grid-item creative" style="position: absolute; left: 0%; top: 297px;">
-					<a href="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/240233494&amp;color=%23ff5500&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;show_teaser=true&amp;visual=true" class="work-video">
-						<div class="portfolio-item rounded shadow-dark">
-							<div class="details">
-								<span class="term">Creative</span>
-								<h4 class="title">Onboarding Motivation</h4>
-								<span class="more-button"><i class="icon-music-tone-alt"></i></span>
-							</div>
-							<div class="thumb">
-								<img src="images/works/4.svg" alt="Portfolio-title">
-								<div class="mask"></div>
-							</div>
-						</div>
-					</a>
-				</div>
-
-				<!-- portfolio item -->
-				<div class="col-md-4 col-sm-6 grid-item art branding" style="position: absolute; left: 33.3333%; top: 297px;">
-					<a href="#gallery-1" class="gallery-link">
-						<div class="portfolio-item rounded shadow-dark">
-							<div class="details">
-								<span class="term">Art, Branding</span>
-								<h4 class="title">iMac Mockup Design</h4>
-								<span class="more-button"><i class="icon-picture"></i></span>
-							</div>
-							<div class="thumb">
-								<img src="images/works/5.svg" alt="Portfolio-title">
-								<div class="mask"></div>
-							</div>
-						</div>
-					</a>
-					<div id="gallery-1" class="gallery mfp-hide">
-						<a href="images/works/5.svg"></a>
-						<a href="images/works/4.svg"></a>
-					</div>
-				</div>
-
-				<!-- portfolio item -->
-				<div class="col-md-4 col-sm-6 grid-item creative design" style="position: absolute; left: 66.6667%; top: 297px;">
-					<a href="https://themeforest.net/user/pxlsolutions/portfolio" target="_blank">
-						<div class="portfolio-item rounded shadow-dark">
-							<div class="details">
-								<span class="term">Creative, Design</span>
-								<h4 class="title">Game Store App Concept</h4>
-								<span class="more-button"><i class="icon-link"></i></span>
-							</div>
-							<div class="thumb">
-								<img src="images/works/6.svg" alt="Portfolio-title">
-								<div class="mask"></div>
-							</div>
-						</div>
-					</a>
-				</div>
-
-			</div>
-
-			<!-- more button -->
-			<div class="load-more text-center mt-4">
-				<a href="javascript:" class="btn btn-default"><i class="fas fa-spinner"></i> Load more</a>
-				<!-- numbered pagination (hidden for infinite scroll) -->
-				<ul class="portfolio-pagination list-inline d-none">
-					<li class="list-inline-item">1</li>
-					<li class="list-inline-item"><a href="works-2.html">2</a></li>
-				</ul>
-			</div>
-
 		</div>
 
 	</section>
@@ -769,7 +636,7 @@
 					<!-- contact info -->
 					<div class="contact-info">
 						<h3 class="wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Let's talk about everything!</h3>
-						<p class="wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Don't like forms? Send me an <a href="mailto:name@example.com">email</a>. 👋</p>
+						<p class="wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Feel free to send me an <a href="mailto:seven.y.q.guo@hsbc.com.cn">email</a>. 👋</p>
 					</div>
 				</div>
 
@@ -794,7 +661,7 @@
 
 	header {
 		display: flex;
-    width: 920px;
+    width: 1080px;
     margin: 0 auto;
     align-items: center;
     justify-content: space-between;
@@ -871,5 +738,10 @@
     text-rendering: auto;
     line-height: inherit;
     -webkit-font-smoothing: antialiased;
+	}
+	.location {
+		display: flex;
+		align-items: center;
+    justify-content: space-between;
 	}
 </style>

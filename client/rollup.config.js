@@ -78,6 +78,9 @@ export default {
 			proxy: [{
 				from: '/employee',
 				to: 'https://kqct8dttvd.execute-api.ap-south-1.amazonaws.com/employee'
+			}, {
+				from: '/aob',
+				to: 'https://kqct8dttvd.execute-api.ap-south-1.amazonaws.com/aob'
 			}]
 		})
 	],

@@ -13,6 +13,7 @@
 	import ProgressBar from '@okrad/svelte-progressbar';
 
 	let user = {};
+	let aob = {};
 	let series = [{
 		perc: 0,
 		color: '#2196f3'
@@ -30,13 +31,52 @@
 		});
 	}
 
+	function getAob(id) {
+		fetch(`/aob/${id}`).then(res => res.json()).then(res => {
+			aob = res.Item || {};
+		});
+	}
+
 	const unsubscribe = query.subscribe(value => {
-		getProfile(value)
+		getProfile(value);
+		getAob(value);
 	});
 
 	onMount(async () => {
 		getProfile('43304443');
+		getAob('43304443');
 	});
+
+	// let slick0 = 'slick-active';
+	// let slick1 = '';
+	// let aob = [{
+	// 	name: 'Alice',
+	// 	title: 'BA',
+	// 	message: 'I enjoy working with the theme and learn so much. You guys make the process fun and interesting. Good luck! 👍',
+	// 	active: true
+	// }, {
+	// 	name: 'Seven',
+	// 	title: '234',
+	// 	message: '234'
+	// }, {
+	// 	name: 'Ritu',
+	// 	title: '345',
+	// 	message: '345'
+	// }];
+
+	// let activeContent = aob.filter(item => item.active)[0];
+	//
+	// const handleSlick = (id) => () => {
+	// 	aob = aob.map(item => ({
+	// 		name: item.name,
+	// 		title: item.title,
+	// 		message: item.message
+	// 	}));
+	//
+	// 	aob[id].active = true;
+	//
+	// 	aob = [ ...aob ];
+	// }
 
 </script>
 
@@ -246,51 +286,64 @@
 			<div class="spacer" data-height="60" style="height: 60px;"></div>
 
 			<!-- testimonials wrapper -->
+			{#if aob.nominatedBy}
 			<div class="testimonials-wrapper slick-initialized slick-slider slick-dotted" role="toolbar">
 
 				<!-- testimonial item -->
-				<div aria-live="polite" class="slick-list draggable"><div class="slick-track" role="listbox" style="opacity: 1; width: 2800px; transform: translate3d(-700px, 0px, 0px);"><div class="testimonial-item text-center mx-auto slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1" style="width: 700px;">
+				<div aria-live="polite" class="slick-list draggable"><div class="slick-track" role="listbox" style="opacity: 1; width: 2800px; transform: translate3d(-700px, 0px, 0px);">
+				<div class="testimonial-item text-center mx-auto slick-slide slick-cloned" data-slick-index="-1" aria-hidden="true" tabindex="-1" style="width: 700px;">
 					<div class="thumb mb-3 mx-auto">
 						<img src="images/avatar-1.svg" alt="customer-name">
 					</div>
-					<h4 class="mt-3 mb-0">John Doe</h4>
+					<h4 class="mt-3 mb-0">Seven</h4>
 					<span class="subtitle">Product designer at Dribbble</span>
 					<div class="bg-white padding-30 shadow-dark rounded triangle-top position-relative mt-4">
 						<p class="mb-0">I enjoy working with the theme and learn so much. You guys make the process fun and interesting. Good luck! 🔥</p>
 					</div>
-				</div><div class="testimonial-item text-center mx-auto slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00" style="width: 700px;">
+				</div>
+				<div class="testimonial-item text-center mx-auto slick-slide slick-current slick-active" data-slick-index="0" aria-hidden="false" tabindex="-1" role="option" aria-describedby="slick-slide00" style="width: 700px;">
 					<div class="thumb mb-3 mx-auto">
 						<img src="images/avatar-3.svg" alt="customer-name">
 					</div>
-					<h4 class="mt-3 mb-0">John Doe</h4>
-					<span class="subtitle">Product designer at Dribbble</span>
+					<h4 class="mt-3 mb-0">{aob.nominatedBy}</h4>
+					<span class="subtitle">{aob.behaviour}</span>
 					<div class="bg-white padding-30 shadow-dark rounded triangle-top position-relative mt-4">
-						<p class="mb-0">I enjoy working with the theme and learn so much. You guys make the process fun and interesting. Good luck! 👍</p>
+						<p class="mb-0">{aob.accoladeText}</p>
 					</div>
-				</div><div class="testimonial-item text-center mx-auto slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide01" style="width: 700px;">
+				</div>
+				<div class="testimonial-item text-center mx-auto slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide01" style="width: 700px;">
 					<div class="thumb mb-3 mx-auto">
 						<img src="images/avatar-1.svg" alt="customer-name">
 					</div>
-					<h4 class="mt-3 mb-0">John Doe</h4>
+					<h4 class="mt-3 mb-0">Ritu</h4>
 					<span class="subtitle">Product designer at Dribbble</span>
 					<div class="bg-white padding-30 shadow-dark rounded triangle-top position-relative mt-4">
 						<p class="mb-0">I enjoy working with the theme and learn so much. You guys make the process fun and interesting. Good luck! 🔥</p>
 					</div>
-				</div><div class="testimonial-item text-center mx-auto slick-slide slick-cloned" data-slick-index="2" aria-hidden="true" tabindex="-1" style="width: 700px;">
+				</div>
+				<div class="testimonial-item text-center mx-auto slick-slide slick-cloned" data-slick-index="2" aria-hidden="true" tabindex="-1" style="width: 700px;">
 					<div class="thumb mb-3 mx-auto">
 						<img src="images/avatar-3.svg" alt="customer-name">
 					</div>
-					<h4 class="mt-3 mb-0">John Doe</h4>
+					<h4 class="mt-3 mb-0">Sunil</h4>
 					<span class="subtitle">Product designer at Dribbble</span>
 					<div class="bg-white padding-30 shadow-dark rounded triangle-top position-relative mt-4">
 						<p class="mb-0">I enjoy working with the theme and learn so much. You guys make the process fun and interesting. Good luck! 👍</p>
 					</div>
-				</div></div></div>
+				</div>
+				</div></div>
 
 				<!-- testimonial item -->
 
 
-			<ul class="slick-dots" style="display: block;" role="tablist"><li class="slick-active" aria-hidden="false" role="presentation" aria-selected="true" aria-controls="navigation00" id="slick-slide00"><button type="button" data-role="none" role="button" tabindex="0">1</button></li><li aria-hidden="true" role="presentation" aria-selected="false" aria-controls="navigation01" id="slick-slide01" class=""><button type="button" data-role="none" role="button" tabindex="0">2</button></li></ul></div>
+			<!-- <ul class="slick-dots" style="display: block;" role="tablist">
+				{#each aob as item, i}
+					<li on:click={handleSlick(i)} class={item.active && 'slick-active'}><button type="button">{i}</button></li>
+				{/each}
+			</ul> -->
+			</div>
+			{/if}
+
 
 			<div class="row">
 				<div class="col-md-3 col-6">

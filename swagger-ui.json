@@ -42,25 +42,25 @@
 					"200": {
 						"description": "OK",
 						"schema": {
-							"$ref": "#/definitions/hsbc-employee-recognition_response_200"
+							"$ref": "#/definitions/hsbc-employee-recognition-200"
 						}
 					},
 					"400": {
 						"description": "Bad Request",
 						"schema": {
-							"$ref": "#/definitions/hsbc-employee-recognition_response_400"
+							"$ref": "#/definitions/hsbc-employee-recognition-400"
 						}
 					},
 					"404": {
 						"description": "Not Found",
 						"schema": {
-							"$ref": "#/definitions/hsbc-employee-recognition_response_404"
+							"$ref": "#/definitions/hsbc-employee-recognition-404"
 						}
 					},
 					"500": {
 						"description": "Internal Server Error",
 						"schema": {
-							"$ref": "#/definitions/hsbc-employee-recognition_response_500"
+							"$ref": "#/definitions/hsbc-employee-recognition-500"
 						}
 					}
 				}
@@ -68,7 +68,7 @@
 		}
 	},
 	"definitions": {
-		"hsbc-employee-recognition_response_200": {
+		"hsbc-employee-recognition-200": {
 			"type": "object",
 			"properties": {
 				"hsbc-employee-recognition": {
@@ -148,7 +148,7 @@
 				}
 			}
 		},
-		"hsbc-employee-recognition_response_500": {
+		"hsbc-employee-recognition-500": {
 			"type": "object",
 			"properties": {
 				"hsbc-employee-recognition": {
@@ -163,7 +163,7 @@
 				}
 			}
 		},
-		"hsbc-employee-recognition_response_400": {
+		"hsbc-employee-recognition-400": {
 			"type": "object",
 			"properties": {
 				"hsbc-employee-recognition": {
@@ -178,7 +178,7 @@
 				}
 			}
 		},
-		"hsbc-employee-recognition_response_404": {
+		"hsbc-employee-recognition-404": {
 			"type": "object",
 			"properties": {
 				"hsbc-employee-recognition": {

@@ -1,0 +1,173 @@
+{
+	"swagger": "2.0",
+	"info": {
+		"description": "This is API for Degreed",
+		"version": "1.0.0",
+		"title": "hsbc-employee-degreed"
+	},
+	"host": "ino0jeiau3.execute-api.ap-south-1.amazonaws.com",
+	"basePath": "/prod/hsbc-employee-degreed/",
+	"schemes": [
+		"https",
+		"http"
+	],
+	"consumes": [
+		"application/json"
+	],
+	"produces": [
+		"application/json"
+	],
+	"paths": {
+		"/hsbc-employee-degreed/{username}": {
+			"get": {
+				"tags": [
+					"hsbc-employee-degreed"
+				],
+				"parameters": [
+					{
+						"name": "username",
+						"in": "path",
+						"required": true,
+						"type": "string"
+					},
+					{
+						"name": "searchUser",
+						"in": "query",
+						"required": false,
+						"type": "string",
+						"maxLength": 8
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "OK",
+						"schema": {
+							"$ref": "#/definitions/hsbc-employee-degreed_response_200"
+						}
+					},
+					"400": {
+						"description": "Bad Request",
+						"schema": {
+							"$ref": "#/definitions/hsbc-employee-degreed_response_400"
+						}
+					},
+					"404": {
+						"description": "Not Found",
+						"schema": {
+							"$ref": "#/definitions/hsbc-employee-degreed_response_404"
+						}
+					},
+					"500": {
+						"description": "Internal Server Error",
+						"schema": {
+							"$ref": "#/definitions/hsbc-employee-degreed_response_500"
+						}
+					}
+				}
+			}
+		}
+	},
+	"definitions": {
+		"hsbc-employee-degreed_response_200": {
+			"type": "object",
+			"properties": {
+				"hsbc-employee-degreed": {
+					"type": "object",
+					"properties": 
+						"degreed_response": {
+							"type": "object",
+							"properties": {
+								"awards": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": "Degreed - Award for user"
+									},
+									"minItems": 1,
+									"maxItems": 10
+								},
+								"certifications": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": "Degreed - Certification for user"
+									},
+									"minItems": 1,
+									"maxItems": 10
+								},
+								"degree": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": "Degreed - degree for user"
+									},
+									"minItems": 1,
+									"maxItems": 10
+								},
+								"badges": {
+									"type": "array",
+									"items": {
+										"type": "string",
+										"description": "Degreed - Badges for user"
+									},
+									"minItems": 1,
+									"maxItems": 10
+								}
+							}
+						}
+					}
+				}
+			}
+		},
+		"hsbc-employee-degreed_response_500": {
+			"type": "object",
+			"properties": {
+				"hsbc-employee-degreed": {
+					"type": "object",
+					"properties": {
+						"error": {
+							"type": "string",
+							"description": "Internal server Error",
+							"maxLength": 18
+						}
+					}
+				}
+			}
+		},
+		"hsbc-employee-degreed_response_400": {
+			"type": "object",
+			"properties": {
+				"hsbc-employee-degreed": {
+					"type": "object",
+					"properties": {
+						"error": {
+							"type": "string",
+							"description": "Bad Request",
+							"maxLength": 18
+						}
+					}
+				}
+			}
+		},
+		"hsbc-employee-degreed_response_404": {
+			"type": "object",
+			"properties": {
+				"hsbc-employee-degreed": {
+					"type": "object",
+					"properties": {
+						"error": {
+							"type": "string",
+							"description": "Not Found",
+							"maxLength": 18
+						}
+					}
+				}
+			}
+		}
+	}
+}
+© 2021 GitHub, Inc.
+Terms
+Privacy
+Security
+Status

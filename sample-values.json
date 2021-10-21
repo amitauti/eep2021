@@ -1,0 +1,26 @@
+{
+  "response": {
+    "username": "string",
+    "designation": "string",
+    "aobResponse": {
+      "behaviour": [
+        "Strong", "Top"
+      ]
+    },
+    "degreedResponse": {
+      "awards": [
+        "EEP","Unicorn","Code Grind"
+      ],
+      "certifications": [
+        "GCP","AWS"
+      ],
+      "degree": [
+        "Master","PG"
+      ],
+      "badges": [
+        "Yellow","Green"
+      ]
+    },
+    "self": "Hi, This is Seven"
+  }
+}

@@ -18,7 +18,7 @@
 		"application/json"
 	],
 	"paths": {
-		"/ui/{username}": {
+		"/degreed/{username}": {
 			"get": {
 				"tags": [
 					"hsbc-employee-degreed"
@@ -73,7 +73,7 @@
 			"properties": {
 				"response": {
 					"type": "object",
-					"properties": {				
+					"properties": {
 						"degreedResponse": {
 							"type": "object",
 							"properties": {

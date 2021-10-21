@@ -18,14 +18,14 @@
 		"application/json"
 	],
 	"paths": {
-		"/degreed/{username}": {
+		"/degreed/{userid}": {
 			"get": {
 				"tags": [
 					"hsbc-employee-degreed"
 				],
 				"parameters": [
 					{
-						"name": "username",
+						"name": "userid",
 						"in": "path",
 						"required": true,
 						"type": "string"

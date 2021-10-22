@@ -1,5 +1,4 @@
 <script>
-	export let name;
 	import Content from './Content.svelte';
 	import { onMount } from 'svelte';
 	import Header from './Header.svelte';
@@ -13,7 +12,9 @@
 	import ProgressBar from '@okrad/svelte-progressbar';
 
 	let user = {};
-	let aob = {};
+	let extend = {};
+	let aob = [];
+	let activeContent = '';
 	let series = [{
 		perc: 0,
 		color: '#2196f3'
@@ -22,30 +23,34 @@
 	function getProfile(id) {
 		fetch(`/employee/${id}`).then(res => res.json()).then(res => {
 			user = res.Item;
+			extend = res;
+			aob = res?.atOurBest;
+			aob[0].active = true;
 			user.skillsFormat = user.skills.slice(0, -1).join(', ');
 			user.toEmail = `mailto:${user.email}`;
 			series = [{
 				perc: user.profilescore,
 				color: '#2196f3'
 			}];
+			activeContent = aob.filter(item => item.active)[0];
 		});
 	}
 
-	function getAob(id) {
-		fetch(`/aob/${id}`).then(res => res.json()).then(res => {
-			aob = res.Item || {};
-		});
-	}
+	// function getAob(id) {
+	// 	fetch(`/aob/${id}`).then(res => res.json()).then(res => {
+	// 		aob = res.Item || {};
+	// 	});
+	// }
 
 	const unsubscribe = query.subscribe(value => {
 		getProfile(value);
-		getAob(value);
+		// getAob(value);
 	});
 
-	onMount(async () => {
-		getProfile('43304443');
-		getAob('43304443');
-	});
+	// onMount(async () => {
+	// 	getProfile('43304443');
+	// 	// getAob('43304443');
+	// });
 
 	// let slick0 = 'slick-active';
 	// let slick1 = '';
@@ -64,19 +69,22 @@
 	// 	message: '345'
 	// }];
 
-	// let activeContent = aob.filter(item => item.active)[0];
+
+	console.log(activeContent);
 	//
-	// const handleSlick = (id) => () => {
-	// 	aob = aob.map(item => ({
-	// 		name: item.name,
-	// 		title: item.title,
-	// 		message: item.message
-	// 	}));
-	//
-	// 	aob[id].active = true;
-	//
-	// 	aob = [ ...aob ];
-	// }
+	const handleSlick = (id) => () => {
+		aob = aob.map(item => ({
+			nominatedBy: item.nominatedBy,
+			behaviour: item.behaviour,
+			accoladeText: item.accoladeText
+		}));
+
+		aob[id].active = true;
+
+		aob = [ ...aob ];
+
+		activeContent = aob.filter(item => item.active)[0];
+	}
 
 </script>
 
@@ -160,8 +168,8 @@
 			    <div class="fact-item">
 			      <span class="icon icon-trophy"></span>
 			      <div class="details">
-			        <h3 class="mb-0 mt-0 number">{user?.degreedResponse?.awards?.length || 0}</h3>
-			        <p class="mb-0">Awards win</p>
+			        <h3 class="mb-0 mt-0 number">{extend?.awards?.length || 0}</h3>
+			        <p class="mb-0">Awards won</p>
 			      </div>
 			    </div>
 			    <div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
@@ -173,8 +181,8 @@
 			    <div class="fact-item">
 			      <span class="icon icon-badge"></span>
 			      <div class="details">
-			        <h3 class="mb-0 mt-0 number">{user?.degreedResponse?.certifications?.length || 0}</h3>
-			        <p class="mb-0">Centification gain</p>
+			        <h3 class="mb-0 mt-0 number">{extend?.certifications?.length || 0}</h3>
+			        <p class="mb-0">Certifications gained</p>
 			      </div>
 			    </div>
 			    <div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
@@ -185,7 +193,7 @@
 			    <div class="fact-item">
 			      <span class="icon icon-graduation"></span>
 			      <div class="details">
-			        <h3 class="mb-0 mt-0 number">{user?.degreedResponse?.degree?.length || 0}</h3>
+			        <h3 class="mb-0 mt-0 number">{extend?.degreeList?.length || 0}</h3>
 			        <p class="mb-0">Degree completed</p>
 			      </div>
 			    </div>
@@ -197,8 +205,8 @@
 			    <div class="fact-item">
 			      <span class="icon icon-shield"></span>
 			      <div class="details">
-			        <h3 class="mb-0 mt-0 number">{user?.degreedResponse?.badges?.length || 0}</h3>
-			        <p class="mb-0">Badges</p>
+			        <h3 class="mb-0 mt-0 number">{extend?.badgesList?.length || 0}</h3>
+			        <p class="mb-0">Badges earned</p>
 			      </div>
 			    </div>
 			  </div>
@@ -216,7 +224,7 @@
 		<div class="container">
 
 			<!-- section title -->
-			<h2 class="section-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Services</h2>
+			<h2 class="section-title wow fadeInUp" style="visibility: visible; animation-name: fadeInUp;">Achievements</h2>
 
 			<div class="spacer" data-height="60" style="height: 60px;"></div>
 
@@ -230,7 +238,7 @@
 							<div class="service-box rounded data-background padding-30 text-center text-light shadow-blue" data-color="#6C6CE5" style="background-color: rgb(108, 108, 229);">
 								<img src="images/service-1.svg" alt="UI/UX design">
 								<h3 class="mb-3 mt-0">Awards</h3>
-								<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
+								<p class="mb-0">I have been facililated with these awards!!</p>
 							</div>
 							<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
 						</div>
@@ -240,8 +248,8 @@
 							<!-- service box -->
 							<div class="service-box rounded data-background padding-30 text-center shadow-yellow" data-color="#F9D74C" style="background-color: rgb(249, 215, 76);">
 								<img src="images/service-2.svg" alt="UI/UX design">
-								<h3 class="mb-3 mt-0">Centification</h3>
-								<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
+								<h3 class="mb-3 mt-0">Certifications</h3>
+								<p class="mb-0">I have worked really hard to get these certifications!</p>
 							</div>
 							<div class="spacer d-md-none d-lg-none" data-height="30" style="height: 30px;"></div>
 						</div>
@@ -252,22 +260,22 @@
 							<div class="service-box rounded data-background padding-30 text-center text-light shadow-pink" data-color="#F97B8B" style="background-color: rgb(249, 123, 139);">
 								<img src="images/service-3.svg" alt="UI/UX design">
 								<h3 class="mb-3 mt-0">Degrees</h3>
-								<p class="mb-0">Lorem ipsum dolor sit amet consectetuer adipiscing elit aenean commodo ligula eget.</p>
+								<p class="mb-0">I have completed following degrees as part of my education!</p>
 							</div>
 						</div>
 						</Tab>
 					</TabList>
 
 					<TabPanel>
-						<Award />
+						<Award data={extend?.awards || []} />
 					</TabPanel>
 
 					<TabPanel>
-						<Certification />
+						<Certification data={extend?.certifications || []} />
 					</TabPanel>
 
 					<TabPanel>
-						<Degreed />
+						<Degreed data={extend?.degreeList || []} />
 					</TabPanel>
 				</Tabs>
 			</div>
@@ -286,7 +294,7 @@
 			<div class="spacer" data-height="60" style="height: 60px;"></div>
 
 			<!-- testimonials wrapper -->
-			{#if aob.nominatedBy}
+			{#if activeContent}
 			<div class="testimonials-wrapper slick-initialized slick-slider slick-dotted" role="toolbar">
 
 				<!-- testimonial item -->
@@ -305,12 +313,13 @@
 					<div class="thumb mb-3 mx-auto">
 						<img src="images/avatar-3.svg" alt="customer-name">
 					</div>
-					<h4 class="mt-3 mb-0">{aob.nominatedBy}</h4>
-					<span class="subtitle">{aob.behaviour}</span>
+					<h4 class="mt-3 mb-0">{activeContent.nominatedBy}</h4>
+					<span class="subtitle">Recognised in category of <b>{activeContent.behaviour}</b></span>
 					<div class="bg-white padding-30 shadow-dark rounded triangle-top position-relative mt-4">
-						<p class="mb-0">{aob.accoladeText}</p>
+						<p class="mb-0">{activeContent.accoladeText}</p>
 					</div>
 				</div>
+
 				<div class="testimonial-item text-center mx-auto slick-slide" data-slick-index="1" aria-hidden="true" tabindex="-1" role="option" aria-describedby="slick-slide01" style="width: 700px;">
 					<div class="thumb mb-3 mx-auto">
 						<img src="images/avatar-1.svg" alt="customer-name">
@@ -336,80 +345,27 @@
 				<!-- testimonial item -->
 
 
-			<!-- <ul class="slick-dots" style="display: block;" role="tablist">
+			<ul class="slick-dots" style="display: block;" role="tablist">
 				{#each aob as item, i}
 					<li on:click={handleSlick(i)} class={item.active && 'slick-active'}><button type="button">{i}</button></li>
 				{/each}
-			</ul> -->
+			</ul>
 			</div>
 			{/if}
 
 
-			<div class="row">
-				<div class="col-md-3 col-6">
-					<!-- client item -->
-					<div class="client-item">
-						<div class="inner">
-							<img src="images/client-1.svg" alt="client-name">
+			<div class="row" style="margin-top: 40px;">
+				{#each extend?.badgesList || [] as item, i}
+					<div class="col-md-3 col-6" style="margin-bottom: 100px;">
+						<!-- client item -->
+						<div class="client-item">
+							<div class="inner">
+								<img style="width: 150px; height: 150px; border-radius: 5%;" src={item.badge} alt="client-name">
+								<div style="margin-top: 10px;">{item.badgeText}</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-md-3 col-6">
-					<!-- client item -->
-					<div class="client-item">
-						<div class="inner">
-							<img src="images/client-2.svg" alt="client-name">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-6">
-					<!-- client item -->
-					<div class="client-item">
-						<div class="inner">
-							<img src="images/client-3.svg" alt="client-name">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-6">
-					<!-- client item -->
-					<div class="client-item">
-						<div class="inner">
-							<img src="images/client-4.svg" alt="client-name">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-6">
-					<!-- client item -->
-					<div class="client-item">
-						<div class="inner">
-							<img src="images/client-5.svg" alt="client-name">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-6">
-					<!-- client item -->
-					<div class="client-item">
-						<div class="inner">
-							<img src="images/client-6.svg" alt="client-name">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-6">
-					<!-- client item -->
-					<div class="client-item">
-						<div class="inner">
-							<img src="images/client-7.svg" alt="client-name">
-						</div>
-					</div>
-				</div>
-				<div class="col-md-3 col-6">
-					<!-- client item -->
-					<div class="client-item">
-						<div class="inner">
-							<img src="images/client-8.svg" alt="client-name">
-						</div>
-					</div>
-				</div>
+				{/each}
 			</div>
 
 		</div>
@@ -417,7 +373,7 @@
 	</section>
 
 	<!-- section contact -->
-	<section id="contact">
+	<section id="contact" style="padding-top: 40px;">
 
 		<div class="container">
 
@@ -437,7 +393,7 @@
 				</div>
 
 				<div class="col-md-8">
-					<img src="images/email.jpeg" />
+					<img src="images/email.jpeg" alt="" />
 				</div>
 
 			</div>

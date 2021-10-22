@@ -10,7 +10,7 @@
 <header>
 	<div class="logo">
 		<a href="#">
-			HSBC Regonization
+			Above & Beyond
 		</a>
 	</div>
 	<div class="search">
